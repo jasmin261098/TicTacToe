@@ -15,9 +15,32 @@ public class TicTacToeGameplay {
             actionConditionsAndPlayOn(e);
         }
     };
+    private ActionListener restartActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent r) {
+            restartActionListenerFunction(r);
+        }
+    };
 
     public TicTacToeGameplay() {
-        this.gameBoard = new TicTacToeGameBoard(eventListener);
+        this.gameBoard = new TicTacToeGameBoard(eventListener, restartActionListener);
+    }
+
+    private void restartActionListenerFunction(ActionEvent e) {
+        if (gameOver == true) { 
+            for (int r=0; r < 3; r++){ 
+                for (int c = 0; c < 3; c++) {
+                    JButton tile = gameBoard.board [r][c];
+                    tile.setText("");
+                    tile.setForeground(Color.white);
+                    tile.setBackground(Color.pink);
+                }
+            }
+            gameBoard.textLabel.setText("Tic Tac Toe");
+            turns = 0;
+            currentPlayer = PLAYER_X;
+            gameOver = false;
+        }
     }
 
     private void actionConditionsAndPlayOn(ActionEvent e) {

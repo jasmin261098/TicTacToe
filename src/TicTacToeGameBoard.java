@@ -6,12 +6,14 @@ public class TicTacToeGameBoard {
     private final int BOARD_WIDTH = 600;
     private final int BOARD_HEIGHT = 700;
     private ActionListener eventListener;
+    private ActionListener restartActionListener;
     public JLabel textLabel;
     public JButton restartLabel;
     public JButton[][] board = new JButton[3][3];
 
-    public TicTacToeGameBoard(ActionListener eventListener) {
-        this.eventListener = eventListener;
+    public TicTacToeGameBoard(ActionListener tileEventListener, ActionListener restartEventListener) {
+        this.eventListener = tileEventListener;
+        this.restartActionListener = restartEventListener;
         JFrame frame = constructFrameBase();
         JPanel textPanel = constructTextPanel();
         JPanel boardPanel = constructBoardPanel();
@@ -26,7 +28,7 @@ public class TicTacToeGameBoard {
         JFrame frame = new JFrame("Tic Tac Toe Minigame");
         frame.setVisible(true);
         frame.setSize(BOARD_WIDTH, BOARD_HEIGHT);
-        frame.setLocationRelativeTo(null);//creates window at the center of the screen
+        frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
@@ -44,8 +46,9 @@ public class TicTacToeGameBoard {
         return textLabel;
     }
 
-    private JButton constructRestartLabel() {
+    public JButton constructRestartLabel() {
         restartLabel = new JButton();
+        restartLabel.addActionListener(restartActionListener);
         restartLabel.setBackground(Color.pink);
         restartLabel.setForeground(Color.white);
         restartLabel.setFont(new Font("Arial", Font.BOLD, 50));
